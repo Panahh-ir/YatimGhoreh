@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>یتیم غوره | ورود به کهن‌آیین</title>
+    <title>یتیم غوره</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -80,19 +80,7 @@
             color: #ecd68a;
             text-shadow: 0 0 8px #8a6a1a;
             letter-spacing: 4px;
-            margin-bottom: 12px;
-        }
-
-        .sub {
-            text-align: center;
-            font-size: 10px;
-            color: #b89a4a;
-            border-bottom: 1px solid #b89a4a;
-            display: inline-block;
-            width: auto;
-            margin: 0 auto 28px;
-            padding-bottom: 6px;
-            letter-spacing: 2px;
+            margin-bottom: 28px;
         }
 
         .input-group {
@@ -206,11 +194,10 @@
 
 <div class="mystic-card">
     <div class="game-title">یتیم غوره</div>
-    <div style="text-align: center;"><span class="sub"><i class="fas fa-feather-alt"></i> آیین کهن <i class="fas fa-feather-alt"></i></span></div>
 
     <div id="loginSection">
         <div class="input-group">
-            <label><i class="fas fa-user-astronaut"></i> نام کاربری</label>
+            <label><i class="fas fa-user"></i> نام کاربری</label>
             <input type="text" id="loginUsername" class="mystic-field" placeholder="نام کاربری">
         </div>
         <div class="input-group">
@@ -218,7 +205,7 @@
             <input type="password" id="loginPassword" class="mystic-field" placeholder="••••••">
         </div>
         <button id="loginBtn" class="gold-btn"><i class="fas fa-key"></i> وارد شو</button>
-        <div class="toggle-link"><span id="showRegBtn"><i class="fas fa-user-plus"></i> ثبت‌نام کن</span></div>
+        <div class="toggle-link"><span id="showRegBtn"><i class="fas fa-user-plus"></i> ثبت‌نام</span></div>
     </div>
 
     <div id="registerSection" style="display:none;">
@@ -227,7 +214,7 @@
             <input type="text" id="regFullname" class="mystic-field" placeholder="نام کامل">
         </div>
         <div class="input-group">
-            <label><i class="fas fa-user-tag"></i> نام کاربری</label>
+            <label><i class="fas fa-user"></i> نام کاربری</label>
             <input type="text" id="regUsername" class="mystic-field" placeholder="نام کاربری">
         </div>
         <div class="input-group">
@@ -235,11 +222,11 @@
             <input type="password" id="regPassword" class="mystic-field" placeholder="••••••">
         </div>
         <div class="input-group">
-            <label><i class="fas fa-image"></i> لینک آواتار (اختیاری)</label>
-            <input type="text" id="regAvatar" class="mystic-field" placeholder="https://...">
+            <label><i class="fas fa-image"></i> لینک آواتار</label>
+            <input type="text" id="regAvatar" class="mystic-field" placeholder="اختیاری">
         </div>
-        <button id="registerBtn" class="gold-btn"><i class="fas fa-star-of-life"></i> ثبت نام</button>
-        <div class="toggle-link"><span id="backLoginBtn"><i class="fas fa-arrow-right"></i> برگشت به ورود</span></div>
+        <button id="registerBtn" class="gold-btn"><i class="fas fa-check"></i> ثبت نام</button>
+        <div class="toggle-link"><span id="backLoginBtn"><i class="fas fa-arrow-right"></i> بازگشت</span></div>
     </div>
 
     <div id="messageBox" class="msg-area"></div>
@@ -262,6 +249,7 @@
         let isPlaying = false;
 
         function playMusic() {
+            music.volume = 0.12;
             music.play().then(() => {
                 isPlaying = true;
                 toggleBtn.innerHTML = '<i class="fas fa-music"></i> قطع موزیک';
@@ -284,7 +272,7 @@
             document.body.removeEventListener('click', firstClick);
         });
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEcOQ0RV9OcLXI8Rt8yREWDtitv6_h9r6gZu4TJRF0scqpvyeHJnfW77n0P-trwAQXNw/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3vPT4-gISwWGaWCeNI_nRycScE7qZriEII7e4d9sd7IKQR3Rgv74tiUQZl0_wBlOYXA/exec";
 
         function showMessage(text, isGood=false){
             let box = document.getElementById('messageBox');
@@ -310,7 +298,6 @@
             }
         }
 
-        // ثبت نام
         document.getElementById('registerBtn').onclick = async () => {
             const fullname = document.getElementById('regFullname').value.trim();
             const username = document.getElementById('regUsername').value.trim();
@@ -331,7 +318,6 @@
             }
         };
 
-        // ورود
         document.getElementById('loginBtn').onclick = async () => {
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
@@ -353,7 +339,6 @@
             }
         };
 
-        // تغییر بین پنل‌ها
         document.getElementById('showRegBtn').onclick = () => {
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('registerSection').style.display = 'block';
