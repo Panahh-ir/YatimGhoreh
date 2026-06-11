@@ -105,7 +105,7 @@
             <label><i class="fas fa-lock"></i> رمز عبور</label>
             <input type="password" id="loginPassword" class="mystic-field" placeholder="••••••">
         </div>
-        <button id="loginBtn" class="gold-btn"><i class="fas fa-key"></i> وارد شو</button>
+        <button class="gold-btn" id="loginBtn"><i class="fas fa-key"></i> وارد شو</button>
         <div class="toggle-link"><span id="showRegBtn"><i class="fas fa-user-plus"></i> ثبت‌نام</span></div>
     </div>
 
@@ -126,7 +126,7 @@
             <label><i class="fas fa-image"></i> لینک آواتار</label>
             <input type="text" id="regAvatar" class="mystic-field" placeholder="اختیاری">
         </div>
-        <button id="registerBtn" class="gold-btn"><i class="fas fa-check"></i> ثبت نام</button>
+        <button class="gold-btn" id="registerBtn"><i class="fas fa-check"></i> ثبت نام</button>
         <div class="toggle-link"><span id="backLoginBtn"><i class="fas fa-arrow-right"></i> بازگشت</span></div>
     </div>
 
@@ -144,111 +144,110 @@
 <audio id="bgMusic" src="https://cdn.imgurl.ir/uploads/e852702_bg-music.mp3" loop preload="auto"></audio>
 
 <script>
-    (function(){
-        const music = document.getElementById('bgMusic');
-        const toggleBtn = document.getElementById('musicToggle');
-        let isPlaying = false;
+    var music = document.getElementById('bgMusic');
+    var toggleBtn = document.getElementById('musicToggle');
+    var isPlaying = false;
 
-        function playMusic() {
-            music.volume = 0.12;
-            music.play().then(() => {
-                isPlaying = true;
-                toggleBtn.innerHTML = '<i class="fas fa-music"></i> قطع موزیک';
-            }).catch(e => console.log('عدم مجوز پخش خودکار'));
+    function playMusic() {
+        music.volume = 0.12;
+        music.play().then(function() {
+            isPlaying = true;
+            toggleBtn.innerHTML = '<i class="fas fa-music"></i> قطع موزیک';
+        }).catch(function() {});
+    }
+
+    function pauseMusic() {
+        music.pause();
+        isPlaying = false;
+        toggleBtn.innerHTML = '<i class="fas fa-music"></i> پخش موزیک';
+    }
+
+    toggleBtn.onclick = function() {
+        if (isPlaying) pauseMusic();
+        else playMusic();
+    };
+
+    document.body.addEventListener('click', function firstClick() {
+        if (!isPlaying) playMusic();
+        document.body.removeEventListener('click', firstClick);
+    });
+
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcjBLchb5NFZQoFNc4ijHL7acSiEtD2JGQ171xKJYx16fVvgYI09PBh45PV1wXI6tJOQ/exec";
+
+    function showMessage(text, isGood) {
+        var box = document.getElementById('messageBox');
+        box.innerText = text;
+        box.style.display = 'block';
+        box.style.borderRightColor = isGood ? '#d4af37' : '#d44';
+        setTimeout(function() { box.style.display = 'none'; }, 3200);
+    }
+
+    async function callAPI(action, payload) {
+        try {
+            var response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: action, ...payload })
+            });
+            var data = await response.json();
+            return data;
+        } catch(e) {
+            return { ok: false, message: 'خطا در ارتباط با سرور' };
+        }
+    }
+
+    document.getElementById('registerBtn').onclick = async function() {
+        var fullname = document.getElementById('regFullname').value.trim();
+        var username = document.getElementById('regUsername').value.trim();
+        var password = document.getElementById('regPassword').value.trim();
+        var avatar = document.getElementById('regAvatar').value.trim();
+
+        if (!fullname || !username || !password) {
+            showMessage('نام کامل، نام کاربری و رمز عبور الزامی است');
+            return;
         }
 
-        function pauseMusic() {
-            music.pause();
-            isPlaying = false;
-            toggleBtn.innerHTML = '<i class="fas fa-music"></i> پخش موزیک';
+        var res = await callAPI('register', { fullname: fullname, username: username, password: password, avatar: avatar });
+        showMessage(res.message, res.ok);
+        if (res.ok) {
+            document.getElementById('backLoginBtn').click();
+            document.getElementById('loginUsername').value = username;
+            document.getElementById('loginPassword').value = '';
+        }
+    };
+
+    document.getElementById('loginBtn').onclick = async function() {
+        var username = document.getElementById('loginUsername').value.trim();
+        var password = document.getElementById('loginPassword').value.trim();
+
+        if (!username || !password) {
+            showMessage('نام کاربری و رمز عبور الزامی است');
+            return;
         }
 
-        toggleBtn.onclick = () => {
-            if (isPlaying) pauseMusic();
-            else playMusic();
-        };
-
-        document.body.addEventListener('click', function firstClick() {
-            if (!isPlaying) playMusic();
-            document.body.removeEventListener('click', firstClick);
-        });
-
-        const SCRIPT_URL = "const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcjBLchb5NFZQoFNc4ijHL7acSiEtD2JGQ171xKJYx16fVvgYI09PBh45PV1wXI6tJOQ/exec";";
-
-        function showMessage(text, isGood=false){
-            let box = document.getElementById('messageBox');
-            box.innerText = text;
-            box.style.display = 'block';
-            box.style.borderRightColor = isGood ? '#d4af37' : '#d44';
-            setTimeout(()=>{ box.style.display = 'none'; }, 3200);
+        var res = await callAPI('login', { username: username, password: password });
+        if (res.ok) {
+            localStorage.setItem('yatim_session', JSON.stringify(res.userData));
+            showMessage('ورود موفق', true);
+            setTimeout(function() {
+                location.href = 'html/dashboard.html';
+            }, 600);
+        } else {
+            showMessage(res.message);
         }
+    };
 
-        async function callAPI(action, payload) {
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action, ...payload })
-                });
-                const data = await response.json();
-                return data;
-            } catch(e) {
-                return { ok: false, message: 'خطا در ارتباط با سرور' };
-            }
-        }
+    document.getElementById('showRegBtn').onclick = function() {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('registerSection').style.display = 'block';
+        document.getElementById('messageBox').style.display = 'none';
+    };
 
-        document.getElementById('registerBtn').onclick = async () => {
-            const fullname = document.getElementById('regFullname').value.trim();
-            const username = document.getElementById('regUsername').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-            const avatar = document.getElementById('regAvatar').value.trim();
-
-            if(!fullname || !username || !password){
-                showMessage('نام کامل، نام کاربری و رمز عبور الزامی است');
-                return;
-            }
-
-            const res = await callAPI('register', { fullname, username, password, avatar });
-            showMessage(res.message, res.ok);
-            if(res.ok){
-                document.getElementById('backLoginBtn').click();
-                document.getElementById('loginUsername').value = username;
-                document.getElementById('loginPassword').value = '';
-            }
-        };
-
-        document.getElementById('loginBtn').onclick = async () => {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-
-            if(!username || !password){
-                showMessage('نام کاربری و رمز عبور الزامی است');
-                return;
-            }
-
-            const res = await callAPI('login', { username, password });
-            if(res.ok){
-                localStorage.setItem('yatim_session', JSON.stringify(res.userData));
-                showMessage('ورود موفق', true);
-                setTimeout(() => {
-                    location.href = 'html/dashboard.html';
-                }, 600);
-            } else {
-                showMessage(res.message);
-            }
-        };
-
-        document.getElementById('showRegBtn').onclick = () => {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('registerSection').style.display = 'block';
-            document.getElementById('messageBox').style.display = 'none';
-        };
-        document.getElementById('backLoginBtn').onclick = () => {
-            document.getElementById('registerSection').style.display = 'none';
-            document.getElementById('loginSection').style.display = 'block';
-            document.getElementById('messageBox').style.display = 'none';
-        };
-    })();
+    document.getElementById('backLoginBtn').onclick = function() {
+        document.getElementById('registerSection').style.display = 'none';
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('messageBox').style.display = 'none';
+    };
 </script>
 </body>
 </html>
