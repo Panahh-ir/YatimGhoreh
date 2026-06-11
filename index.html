@@ -282,19 +282,23 @@
             setTimeout(()=>{ box.style.display = 'none'; }, 3200);
         }
 
-        async function callAPI(action, payload){
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action, ...payload })
-                });
-                const data = await response.json();
-                return data;
-            } catch(e){
-                console.error(e);
-                return { ok: false, message: 'خطا در ارتباط با سرور' };
-            }
+        function callAPI(action, payload){
+            return new Promise(function(resolve) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', SCRIPT_URL, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        resolve({ ok: false, message: 'خطای سرور: ' + xhr.status });
+                    }
+                };
+                xhr.onerror = function() {
+                    resolve({ ok: false, message: 'خطا در ارتباط با سرور' });
+                };
+                xhr.send(JSON.stringify({ action: action, ...payload }));
+            });
         }
 
         document.getElementById('registerBtn').onclick = async () => {
