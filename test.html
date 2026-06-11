@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button onclick="test()">تست</button>
+<p id="r"></p>
+<script>
+async function test() {
+    try {
+        var r = await fetch("https://script.google.com/macros/s/AKfycbwcjBLchb5NFZQoFNc4ijHL7acSiEtD2JGQ171xKJYx16fVvgYI09PBh45PV1wXI6tJOQ/exec", {
+            method: 'POST',
+            body: JSON.stringify({ action: 'register', fullname: 'تست', username: 't1', password: '1' })
+        });
+        var d = await r.json();
+        document.getElementById('r').innerText = JSON.stringify(d);
+    } catch(e) {
+        document.getElementById('r').innerText = 'خطا: ' + e.message;
+    }
+}
+</script>
+</body>
+</html>
