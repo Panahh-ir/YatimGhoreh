@@ -48,7 +48,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.78);
             z-index: 0;
         }
 
@@ -73,7 +73,7 @@
         @keyframes floatUp {
             0% { transform: translateY(100vh) scale(0); opacity: 0; }
             10% { opacity: 0.5; }
-            30% { opacity: 0.25; }
+            30% { opacity: 0.2; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
@@ -83,8 +83,8 @@
             width: 95vw;
             height: 90vh;
             display: grid;
-            grid-template-columns: 200px 1fr 1fr 1fr;
-            grid-template-rows: auto auto 1fr auto;
+            grid-template-columns: 160px 1fr 1fr 160px;
+            grid-template-rows: auto 1fr 1fr auto;
             gap: 10px;
             padding: 10px;
         }
@@ -94,11 +94,7 @@
             background: rgba(10, 10, 15, 0.85);
             border: 1px solid #2a2a2a;
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: 0.3s;
-            position: relative;
             backdrop-filter: blur(4px);
         }
 
@@ -114,23 +110,19 @@
         /* ====== ردیف ۱: top bar ====== */
         .top-bar {
             grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 160px 1fr 1fr 160px;
+            gap: 10px;
             background: none;
             border: none;
             padding: 0;
-            gap: 15px;
-        }
-
-        .top-bar::before {
-            display: none;
         }
 
         .top-icons {
             display: flex;
             gap: 8px;
             align-items: center;
+            justify-content: flex-start;
         }
 
         .icon-btn {
@@ -157,8 +149,7 @@
             display: flex;
             gap: 0;
             align-items: center;
-            border-radius: 6px;
-            overflow: hidden;
+            justify-content: center;
         }
 
         .currency {
@@ -172,9 +163,7 @@
             border: 1px solid #2a2a2a;
         }
 
-        .currency i {
-            font-size: 14px;
-        }
+        .currency i { font-size: 14px; }
 
         .gems {
             color: #b89ae0;
@@ -191,12 +180,23 @@
         .user-panel {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .user-info-box {
+            display: flex;
+            align-items: center;
             gap: 8px;
             padding: 5px 12px;
             background: rgba(15, 15, 22, 0.9);
             border: 1px solid #2a2a2a;
             border-radius: 6px;
         }
+
+        .user-text { text-align: right; line-height: 1.3; }
+        .user-name { font-size: 12px; color: #c8a84e; }
+        .user-lvl { font-size: 9px; color: #555; }
 
         .user-avatar {
             width: 34px;
@@ -209,174 +209,91 @@
             justify-content: center;
             font-size: 14px;
             color: #c8a84e;
-            flex-shrink: 0;
         }
 
-        .user-text {
-            text-align: right;
-            line-height: 1.3;
-        }
-
-        .user-name {
-            font-size: 12px;
-            color: #c8a84e;
-        }
-
-        .user-lvl {
-            font-size: 9px;
-            color: #555;
-        }
-
-        /* ====== سمت چپ: منوی لیستی ====== */
-        .side-menu {
+        /* ====== ستون ۱: مسیر جوایز ====== */
+        .reward-column {
             grid-column: 1 / 2;
-            grid-row: 2 / 5;
+            grid-row: 2 / 4;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-
-        .side-menu::before {
-            display: none;
-        }
-
-        .side-item {
-            background: rgba(10, 10, 15, 0.85);
-            border: 1px solid #2a2a2a;
-            border-radius: 6px;
-            padding: 12px 14px;
-            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(4px);
-        }
-
-        .side-item:hover {
-            border-color: #5a4a2a;
-            background: rgba(20, 18, 12, 0.9);
-        }
-
-        .side-item i {
-            font-size: 16px;
-            width: 20px;
+            padding: 20px;
             text-align: center;
+            cursor: pointer;
         }
 
-        .side-item .label {
-            font-size: 12px;
+        .reward-column i {
+            font-size: 32px;
+            color: #e0c070;
+        }
+
+        .reward-column .label {
+            font-size: 13px;
             letter-spacing: 2px;
             color: #999;
         }
 
-        .side-item.story i { color: #4a8a4a; }
-        .side-item.mission i { color: #8a4a4a; }
-        .side-item.shop i { color: #c8a84e; }
+        .reward-column:hover { border-color: #c8a84e; }
 
-        /* ====== مرکز: مبارزه و چالش - کوچیکتر و افقی ====== */
-        .center-area {
-            grid-column: 2 / 4;
-            grid-row: 2 / 3;
+        /* ====== ستون ۲ و ۳: مبارزه و چالش ====== */
+        .battle-cell {
+            grid-column: 2 / 3;
+            grid-row: 2 / 4;
             display: flex;
-            gap: 10px;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-
-        .center-area::before {
-            display: none;
-        }
-
-        .main-btn {
-            flex: 1;
-            max-width: 180px;
-            background: rgba(10, 10, 15, 0.85);
-            border: 1px solid #3a3a1a;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: 0.3s;
+        }
+
+        .battle-btn {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             text-decoration: none;
-            backdrop-filter: blur(4px);
-            padding: 12px 16px;
+            cursor: pointer;
         }
 
-        .main-btn:hover {
-            border-color: #c8a84e;
-            background: rgba(25, 22, 12, 0.9);
+        .battle-btn i { font-size: 44px; color: #c8a84e; }
+        .battle-btn .label { font-size: 16px; letter-spacing: 3px; color: #c8a84e; }
+
+        .challenge-cell {
+            grid-column: 3 / 4;
+            grid-row: 2 / 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .main-btn i {
-            font-size: 22px;
-            color: #c8a84e;
+        .challenge-btn {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
         }
 
-        .main-btn .label {
-            font-size: 13px;
-            letter-spacing: 2px;
-            color: #c8a84e;
-        }
+        .challenge-btn i { font-size: 44px; color: #c8a84e; }
+        .challenge-btn .label { font-size: 16px; letter-spacing: 3px; color: #c8a84e; }
 
-        /* ====== سمت راست: مسیر جوایز و اتحاد ====== */
-        .right-area {
+        /* ====== ستون ۴: خط داستانی، ماموریت، فروشگاه ====== */
+        .side-column {
             grid-column: 4 / 5;
             grid-row: 2 / 5;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            background: none;
-            border: none;
-            padding: 0;
         }
 
-        .right-area::before {
-            display: none;
-        }
-
-        .reward-path {
-            background: rgba(10, 10, 15, 0.85);
-            border: 1px solid #3a3a2a;
-            border-radius: 6px;
-            padding: 20px;
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(4px);
-            font-size: 13px;
-            letter-spacing: 2px;
-            color: #999;
-        }
-
-        .reward-path:hover {
-            border-color: #5a4a2a;
-            background: rgba(20, 18, 12, 0.9);
-            color: #c8a84e;
-        }
-
-        .reward-path i {
-            font-size: 28px;
-            color: #e0c070;
-        }
-
-        .alliance {
-            background: rgba(10, 10, 15, 0.85);
-            border: 1px solid #2a3a4a;
-            border-radius: 6px;
-            padding: 16px;
+        .side-item {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -384,28 +301,33 @@
             justify-content: center;
             gap: 8px;
             cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(4px);
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: #999;
         }
 
-        .alliance:hover {
-            border-color: #4a6a8a;
-            background: rgba(12, 15, 20, 0.9);
-            color: #8ab8e0;
+        .side-item i { font-size: 22px; }
+        .side-item .label { font-size: 12px; letter-spacing: 2px; color: #999; }
+
+        .side-item.story i { color: #4a8a4a; }
+        .side-item.mission i { color: #8a4a4a; }
+        .side-item.shop i { color: #c8a84e; }
+
+        /* ====== ردیف پایین ====== */
+        .alliance-cell {
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
         }
 
-        .alliance i {
-            font-size: 24px;
-            color: #4a6a8a;
-        }
+        .alliance-cell i { font-size: 24px; color: #4a6a8a; }
+        .alliance-cell .label { font-size: 12px; letter-spacing: 2px; color: #999; }
 
-        /* ====== چست‌ها - سمت چپ پایین ====== */
-        .chests-row {
+        .chests-cell {
             grid-column: 2 / 4;
-            grid-row: 3 / 4;
+            grid-row: 4 / 5;
             display: flex;
             gap: 8px;
             background: none;
@@ -414,59 +336,31 @@
             align-items: stretch;
         }
 
-        .chests-row::before {
-            display: none;
-        }
-
         .chest {
+            flex: 1;
             background: rgba(10, 10, 15, 0.85);
             border: 1px solid #2a2a2a;
             border-radius: 6px;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            flex: 1;
-            backdrop-filter: blur(4px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 3px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
         }
 
-        .chest:hover {
-            border-color: #5a4a2a;
-            background: rgba(20, 18, 12, 0.9);
-        }
+        .chest:hover { border-color: #5a4a2a; background: rgba(20, 18, 12, 0.9); }
 
-        .chest i {
-            font-size: 20px;
-        }
-
-        .chest .name {
-            font-size: 10px;
-            color: #666;
-        }
-
-        .chest .price {
-            font-size: 11px;
-            color: #c8a84e;
-        }
+        .chest i { font-size: 20px; }
+        .chest .name { font-size: 10px; color: #666; }
+        .chest .price { font-size: 11px; color: #c8a84e; }
 
         .chest.wooden i { color: #8b7355; }
         .chest.iron i { color: #999; }
         .chest.gold i { color: #e0c070; }
         .chest.jewel i { color: #b89ae0; }
-
-        /* ====== فضای خالی ====== */
-        .empty-space {
-            grid-column: 2 / 4;
-            grid-row: 4 / 5;
-            background: none;
-            border: none;
-            padding: 0;
-        }
     </style>
 </head>
 <body>
@@ -481,102 +375,84 @@
 
     <div id="menu-container">
 
-        <!-- ردیف بالا: همه تو یه ردیف -->
+        <!-- ردیف بالا -->
         <div class="top-bar">
             <div class="top-icons">
                 <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
-                <button class="icon-btn"><i class="fa-solid fa-bullhorn"></i></button>
+                <button class="icon-btn"><i class="fa-solid fa-envelope"></i></button>
                 <button class="icon-btn"><i class="fa-solid fa-headset"></i></button>
             </div>
-
             <div class="currencies">
                 <div class="currency gems">
-                    <i class="fa-solid fa-gem"></i>
-                    <span id="gems-count">۰</span>
+                    <i class="fa-solid fa-gem"></i> <span id="gems-count">۰</span>
                 </div>
                 <div class="currency coins">
-                    <i class="fa-solid fa-coins"></i>
-                    <span id="coins-count">۰</span>
+                    <i class="fa-solid fa-coins"></i> <span id="coins-count">۰</span>
                 </div>
             </div>
-
+            <div></div>
             <div class="user-panel">
-                <div class="user-text">
-                    <div class="user-name" id="display-name">...</div>
-                    <div class="user-lvl" id="user-level">Lv. ۱</div>
-                </div>
-                <div class="user-avatar">
-                    <i class="fa-solid fa-user"></i>
+                <div class="user-info-box">
+                    <div class="user-text">
+                        <div class="user-name" id="display-name">...</div>
+                        <div class="user-lvl" id="user-level">Lv. ۱</div>
+                    </div>
+                    <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
                 </div>
             </div>
         </div>
 
-        <!-- سمت چپ: منوی لیستی -->
-        <div class="side-menu">
-            <div class="side-item story">
-                <i class="fa-solid fa-book"></i>
-                <span class="label">خط داستانی</span>
-            </div>
-            <div class="side-item mission">
-                <i class="fa-solid fa-list-check"></i>
-                <span class="label">ماموریت</span>
-            </div>
-            <div class="side-item shop">
-                <i class="fa-solid fa-shop"></i>
-                <span class="label">فروشگاه</span>
-            </div>
+        <!-- مسیر جوایز - ستون ۱ -->
+        <div class="panel clickable reward-column">
+            <i class="fa-solid fa-gift"></i>
+            <span class="label">مسیر جوایز</span>
         </div>
 
-        <!-- مرکز بالا: مبارزه و چالش -->
-        <div class="center-area">
-            <a href="game.html" class="main-btn">
+        <!-- مبارزه -->
+        <div class="panel clickable battle-cell">
+            <a href="game.html" class="battle-btn">
                 <i class="fa-solid fa-crosshairs"></i>
                 <span class="label">مبارزه</span>
             </a>
-            <div class="main-btn">
+        </div>
+
+        <!-- چالش -->
+        <div class="panel clickable challenge-cell">
+            <div class="challenge-btn">
                 <i class="fa-solid fa-trophy"></i>
                 <span class="label">چالش</span>
             </div>
         </div>
 
-        <!-- سمت راست: مسیر جوایز و اتحاد -->
-        <div class="right-area">
-            <div class="reward-path">
-                <i class="fa-solid fa-gift"></i>
-                <span>مسیر جوایز</span>
+        <!-- ستون راست -->
+        <div class="side-column">
+            <div class="panel clickable side-item story">
+                <i class="fa-solid fa-book"></i>
+                <span class="label">خط داستانی</span>
             </div>
-            <div class="alliance">
-                <i class="fa-solid fa-handshake"></i>
-                <span>اتحاد</span>
+            <div class="panel clickable side-item mission">
+                <i class="fa-solid fa-list-check"></i>
+                <span class="label">ماموریت</span>
             </div>
-        </div>
-
-        <!-- پایین وسط: صندوقچه‌ها -->
-        <div class="chests-row">
-            <div class="chest wooden">
-                <i class="fa-solid fa-box"></i>
-                <div class="name">چوبی</div>
-                <div class="price">۱۰۰</div>
-            </div>
-            <div class="chest iron">
-                <i class="fa-solid fa-box"></i>
-                <div class="name">آهنی</div>
-                <div class="price">۲۰۰</div>
-            </div>
-            <div class="chest gold">
-                <i class="fa-solid fa-box"></i>
-                <div class="name">طلایی</div>
-                <div class="price">۵۰۰</div>
-            </div>
-            <div class="chest jewel">
-                <i class="fa-solid fa-gem"></i>
-                <div class="name">جواهر</div>
-                <div class="price">۱۰۰۰</div>
+            <div class="panel clickable side-item shop">
+                <i class="fa-solid fa-shop"></i>
+                <span class="label">فروشگاه</span>
             </div>
         </div>
 
-        <!-- فضای خالی پایین -->
-        <div class="empty-space"></div>
+        <!-- اتحاد -->
+        <div class="panel clickable alliance-cell">
+            <i class="fa-solid fa-handshake"></i>
+            <span class="label">اتحاد</span>
+        </div>
+
+        <!-- صندوقچه‌ها -->
+        <div class="chests-cell">
+            <div class="chest wooden"><i class="fa-solid fa-box"></i><div class="name">چوبی</div><div class="price">۱۰۰</div></div>
+            <div class="chest iron"><i class="fa-solid fa-box"></i><div class="name">آهنی</div><div class="price">۲۰۰</div></div>
+            <div class="chest gold"><i class="fa-solid fa-box"></i><div class="name">طلایی</div><div class="price">۵۰۰</div></div>
+            <div class="chest jewel"><i class="fa-solid fa-gem"></i><div class="name">جواهر</div><div class="price">۱۰۰۰</div></div>
+        </div>
 
     </div>
 
