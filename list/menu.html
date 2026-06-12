@@ -35,10 +35,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: 
-                radial-gradient(ellipse at center, rgba(30, 30, 30, 0.7) 0%, #0d0d0d 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.03"/></svg>');
-            background-repeat: repeat;
+            background-image: url('https://cdn.imgurl.ir/uploads/m853286_bg-forest.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 0;
         }
 
         .particles {
@@ -48,7 +59,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
         .particle {
@@ -61,40 +72,42 @@
 
         @keyframes floatUp {
             0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 0.6; }
-            30% { opacity: 0.3; }
+            10% { opacity: 0.5; }
+            30% { opacity: 0.25; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
         #menu-container {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             width: 95vw;
             height: 90vh;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-template-rows: auto auto 1fr auto;
-            gap: 10px;
-            padding: 10px;
+            grid-template-columns: 220px 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 12px;
+            padding: 15px;
         }
 
+        /* ====== پنل عمومی ====== */
         .panel {
-            background: rgba(10, 10, 15, 0.9);
+            background: rgba(10, 10, 15, 0.85);
             border: 1px solid #2a2a2a;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: 0.3s;
             position: relative;
+            backdrop-filter: blur(4px);
         }
 
         .panel::before {
             content: '';
             position: absolute;
             top: -1px;
-            left: 15px;
-            right: 15px;
+            left: 12px;
+            right: 12px;
             height: 1px;
             background: linear-gradient(90deg, transparent, #4a3a1a, transparent);
             opacity: 0;
@@ -110,15 +123,15 @@
         }
 
         .clickable:hover {
-            border-color: #4a3a1a;
-            background: rgba(20, 20, 15, 0.9);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-color: #5a4a2a;
+            background: rgba(20, 18, 12, 0.9);
         }
 
+        /* ====== ردیف ۱: top bar ====== */
         .top-icons {
             grid-column: 1 / 2;
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
             background: none;
             border: none;
@@ -130,13 +143,13 @@
         }
 
         .icon-btn {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(15, 15, 22, 0.9);
             border: 1px solid #2a2a2a;
             color: #666;
-            font-size: 13px;
+            font-size: 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -145,7 +158,7 @@
         }
 
         .icon-btn:hover {
-            border-color: #4a3a1a;
+            border-color: #c8a84e;
             color: #c8a84e;
         }
 
@@ -153,15 +166,14 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 4px;
-            font-size: 14px;
-            font-weight: normal;
+            font-size: 13px;
             letter-spacing: 1px;
         }
 
         .currency i {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .gems {
@@ -181,219 +193,267 @@
         .user-panel {
             grid-column: 4 / 5;
             justify-self: end;
-            padding: 8px 14px;
-            gap: 10px;
+            padding: 6px 14px;
+            gap: 8px;
         }
 
         .user-avatar {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: #1a1a2e;
             border: 1px solid #4a3a1a;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 15px;
             color: #c8a84e;
             flex-shrink: 0;
         }
 
         .user-text {
             text-align: right;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .user-name {
-            font-size: 14px;
+            font-size: 13px;
             color: #c8a84e;
-            letter-spacing: 1px;
         }
 
         .user-lvl {
             font-size: 10px;
             color: #555;
-            letter-spacing: 2px;
-            text-transform: uppercase;
         }
 
-        .battle-btn {
-            grid-column: 1 / 3;
-            grid-row: 2 / 4;
-            flex-direction: column;
-            gap: 16px;
-            font-size: 18px;
-            letter-spacing: 4px;
-            color: #c8a84e;
-            border-color: #3a3a1a;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .battle-btn i {
-            font-size: 48px;
-            color: #c8a84e;
-        }
-
-        .challenge-btn {
-            grid-column: 3 / 5;
-            grid-row: 2 / 3;
-            gap: 10px;
-            font-size: 15px;
-            color: #888;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .challenge-btn i {
-            font-size: 26px;
-            color: #c8a84e;
-        }
-
-        .story-panel {
-            grid-column: 3 / 4;
-            grid-row: 3 / 4;
-            flex-direction: column;
-            gap: 8px;
-            border-color: #2a3a2a;
-            font-size: 12px;
-            color: #777;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .story-panel i {
-            font-size: 24px;
-            color: #4a8a4a;
-        }
-
-        .mission-panel {
-            grid-column: 4 / 5;
-            grid-row: 3 / 4;
-            flex-direction: column;
-            gap: 8px;
-            border-color: #3a2a2a;
-            font-size: 12px;
-            color: #777;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .mission-panel i {
-            font-size: 24px;
-            color: #8a4a4a;
-        }
-
-        .shop-panel {
+        /* ====== سمت چپ: منوی لیستی ====== */
+        .side-menu {
             grid-column: 1 / 2;
+            grid-row: 2 / 4;
+            display: flex;
             flex-direction: column;
             gap: 8px;
-            font-size: 12px;
-            color: #777;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .shop-panel i {
-            font-size: 24px;
-            color: #c8a84e;
-        }
-
-        .chests-area {
-            grid-column: 2 / 4;
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            align-items: center;
             background: none;
             border: none;
             padding: 0;
         }
 
-        .chests-area::before {
+        .side-menu::before {
+            display: none;
+        }
+
+        .side-item {
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid #2a2a2a;
+            border-radius: 6px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .side-item:hover {
+            border-color: #5a4a2a;
+            background: rgba(20, 18, 12, 0.9);
+        }
+
+        .side-item i {
+            font-size: 18px;
+            width: 22px;
+            text-align: center;
+        }
+
+        .side-item .label {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #999;
+        }
+
+        .side-item.story i { color: #4a8a4a; }
+        .side-item.mission i { color: #8a4a4a; }
+        .side-item.shop i { color: #c8a84e; }
+
+        /* ====== مرکز: مبارزه و چالش ====== */
+        .center-area {
+            grid-column: 2 / 4;
+            grid-row: 2 / 3;
+            display: flex;
+            gap: 12px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .center-area::before {
+            display: none;
+        }
+
+        .main-btn {
+            flex: 2;
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid #3a3a1a;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            backdrop-filter: blur(4px);
+            padding: 20px;
+        }
+
+        .main-btn:hover {
+            border-color: #c8a84e;
+            background: rgba(25, 22, 12, 0.9);
+        }
+
+        .main-btn i {
+            font-size: 36px;
+            color: #c8a84e;
+        }
+
+        .main-btn .label {
+            font-size: 15px;
+            letter-spacing: 3px;
+            color: #c8a84e;
+        }
+
+        /* ====== سمت راست: مسیر جوایز و اتحاد ====== */
+        .right-area {
+            grid-column: 2 / 4;
+            grid-row: 3 / 4;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .right-area::before {
+            display: none;
+        }
+
+        .reward-path {
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid #3a3a2a;
+            border-radius: 6px;
+            padding: 20px;
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #999;
+        }
+
+        .reward-path:hover {
+            border-color: #5a4a2a;
+            background: rgba(20, 18, 12, 0.9);
+            color: #c8a84e;
+        }
+
+        .reward-path i {
+            font-size: 24px;
+            color: #e0c070;
+        }
+
+        .alliance {
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid #2a3a4a;
+            border-radius: 6px;
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #999;
+        }
+
+        .alliance:hover {
+            border-color: #4a6a8a;
+            background: rgba(12, 15, 20, 0.9);
+            color: #8ab8e0;
+        }
+
+        .alliance i {
+            font-size: 22px;
+            color: #4a6a8a;
+        }
+
+        /* ====== چست‌ها ====== */
+        .chests-row {
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+            display: flex;
+            gap: 6px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .chests-row::before {
             display: none;
         }
 
         .chest {
-            background: rgba(10, 10, 15, 0.9);
+            background: rgba(10, 10, 15, 0.85);
             border: 1px solid #2a2a2a;
-            border-radius: 4px;
-            padding: 10px 12px;
+            border-radius: 6px;
+            padding: 8px 10px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
             flex: 1;
-            max-width: 90px;
-            position: relative;
-        }
-
-        .chest::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 10px;
-            right: 10px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #4a3a1a, transparent);
-            opacity: 0;
-            transition: 0.3s;
+            backdrop-filter: blur(4px);
         }
 
         .chest:hover {
-            border-color: #4a3a1a;
-            background: rgba(20, 20, 15, 0.9);
-        }
-
-        .chest:hover::before {
-            opacity: 1;
+            border-color: #5a4a2a;
+            background: rgba(20, 18, 12, 0.9);
         }
 
         .chest i {
-            font-size: 22px;
-            color: #888;
+            font-size: 18px;
         }
 
-        .chest.wooden { border-color: #4a3a2a; }
-        .chest.wooden i { color: #8b7355; }
-        .chest.iron { border-color: #5a5a5a; }
-        .chest.iron i { color: #999; }
-        .chest.gold { border-color: #7a6a2a; }
-        .chest.gold i { color: #e0c070; }
-        .chest.jewel { border-color: #7a3a7a; }
-        .chest.jewel i { color: #b89ae0; }
-
         .chest .name {
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
-            margin-top: 4px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            margin-top: 2px;
         }
 
         .chest .price {
-            font-size: 11px;
+            font-size: 10px;
             color: #c8a84e;
-            margin-top: 2px;
-            letter-spacing: 1px;
         }
 
-        .seasons-panel {
-            grid-column: 4 / 5;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 12px;
-            color: #777;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .seasons-panel i {
-            font-size: 24px;
-            color: #4a6a8a;
-        }
+        .chest.wooden i { color: #8b7355; }
+        .chest.iron i { color: #999; }
+        .chest.gold i { color: #e0c070; }
+        .chest.jewel i { color: #b89ae0; }
     </style>
 </head>
 <body>
+
+    <div class="overlay"></div>
 
     <audio id="bg-music" loop autoplay>
         <source src="https://cdn.imgurl.ir/uploads/e852702_bg-music.mp3" type="audio/mpeg">
@@ -402,6 +462,8 @@
     <div class="particles" id="particles"></div>
 
     <div id="menu-container">
+
+        <!-- ردیف بالا -->
         <div class="top-icons">
             <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
             <button class="icon-btn"><i class="fa-solid fa-bullhorn"></i></button>
@@ -428,32 +490,48 @@
             </div>
         </div>
 
-        <a href="game.html" class="panel clickable battle-btn">
-            <i class="fa-solid fa-crosshairs"></i>
-            <span>مبارزه</span>
-        </a>
-
-        <div class="panel clickable challenge-btn">
-            <i class="fa-solid fa-trophy"></i>
-            <span>چالش</span>
+        <!-- سمت چپ: منوی لیستی -->
+        <div class="side-menu">
+            <div class="side-item story">
+                <i class="fa-solid fa-book"></i>
+                <span class="label">خط داستانی</span>
+            </div>
+            <div class="side-item mission">
+                <i class="fa-solid fa-list-check"></i>
+                <span class="label">ماموریت</span>
+            </div>
+            <div class="side-item shop">
+                <i class="fa-solid fa-shop"></i>
+                <span class="label">فروشگاه</span>
+            </div>
         </div>
 
-        <div class="panel clickable story-panel">
-            <i class="fa-solid fa-book"></i>
-            <span>خط داستانی</span>
+        <!-- مرکز: مبارزه و چالش -->
+        <div class="center-area">
+            <a href="game.html" class="main-btn">
+                <i class="fa-solid fa-crosshairs"></i>
+                <span class="label">مبارزه</span>
+            </a>
+            <div class="main-btn">
+                <i class="fa-solid fa-trophy"></i>
+                <span class="label">چالش</span>
+            </div>
         </div>
 
-        <div class="panel clickable mission-panel">
-            <i class="fa-solid fa-list-check"></i>
-            <span>ماموریت</span>
+        <!-- سمت راست: مسیر جوایز و اتحاد -->
+        <div class="right-area">
+            <div class="reward-path">
+                <i class="fa-solid fa-gift"></i>
+                <span>مسیر جوایز</span>
+            </div>
+            <div class="alliance">
+                <i class="fa-solid fa-handshake"></i>
+                <span>اتحاد</span>
+            </div>
         </div>
 
-        <div class="panel clickable shop-panel">
-            <i class="fa-solid fa-shop"></i>
-            <span>فروشگاه</span>
-        </div>
-
-        <div class="chests-area">
+        <!-- پایین سمت چپ: صندوقچه‌ها -->
+        <div class="chests-row">
             <div class="chest wooden">
                 <i class="fa-solid fa-box"></i>
                 <div class="name">چوبی</div>
@@ -476,18 +554,14 @@
             </div>
         </div>
 
-        <div class="panel clickable seasons-panel">
-            <i class="fa-solid fa-scroll"></i>
-            <span>فصل‌ها</span>
-        </div>
     </div>
 
     <script>
         const bgMusic = document.getElementById('bg-music');
-        bgMusic.volume = 0.08;
+        bgMusic.volume = 0.07;
 
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 25; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
             const size = Math.random() * 3 + 1;
@@ -495,7 +569,7 @@
             particle.style.height = size + 'px';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.animationDelay = Math.random() * 6 + 's';
-            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
             particlesContainer.appendChild(particle);
         }
 
