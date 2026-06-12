@@ -13,137 +13,260 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #1a1a2e;
-            color: #e0e0e0;
+            background: #0d0d0d;
+            color: #c0c0c0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: 
+                radial-gradient(ellipse at center, rgba(30, 30, 30, 0.7) 0%, #0d0d0d 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.03"/></svg>');
+            background-repeat: repeat;
+        }
+
+        /* افکت ذرات شناور */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp 6s infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            30% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
         #auth-container {
-            background: #16213e;
-            border-radius: 16px;
-            padding: 40px 30px;
-            width: 380px;
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            padding: 45px 35px;
+            width: 400px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                0 0 60px rgba(0, 0, 0, 0.8),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #auth-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #4a3a1a, transparent);
+        }
+
+        #auth-container::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #4a3a1a, transparent);
         }
 
         #auth-container h1 {
-            color: #ffd700;
-            margin-bottom: 8px;
-            font-size: 24px;
+            color: #c8a84e;
+            margin-bottom: 6px;
+            font-size: 26px;
+            letter-spacing: 2px;
+            font-weight: 300;
         }
 
         #auth-container .subtitle {
-            color: #aaa;
-            font-size: 13px;
-            margin-bottom: 25px;
+            color: #555;
+            font-size: 12px;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
         .tab-buttons {
             display: flex;
             gap: 0;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            overflow: hidden;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #1a1a1a;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
+            padding: 12px 10px;
             border: none;
             cursor: pointer;
-            font-size: 15px;
-            background: #0f3460;
-            color: #aaa;
-            transition: 0.2s;
+            font-size: 13px;
+            background: transparent;
+            color: #555;
+            letter-spacing: 3px;
+            transition: 0.3s;
             font-family: inherit;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: #c8a84e;
+            transition: 0.3s;
         }
 
         .tab-btn.active {
-            background: #ffd700;
-            color: #1a1a2e;
-            font-weight: bold;
+            color: #c8a84e;
+        }
+
+        .tab-btn.active::after {
+            width: 60%;
+        }
+
+        .tab-btn:hover {
+            color: #8a7030;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             text-align: right;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-size: 13px;
-            color: #ccc;
+            margin-bottom: 6px;
+            font-size: 11px;
+            color: #555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .form-group input {
             width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background: #0f3460;
-            color: #fff;
+            padding: 12px 14px;
+            border-radius: 2px;
+            border: 1px solid #1a1a1a;
+            background: #0a0a0f;
+            color: #c0c0c0;
             font-size: 14px;
             font-family: inherit;
+            transition: 0.3s;
+            letter-spacing: 1px;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #ffd700;
+            border-color: #4a3a1a;
+            box-shadow: 0 0 10px rgba(200, 168, 78, 0.05);
         }
 
-        #auth-btn {
+        .form-group input::placeholder {
+            color: #2a2a2a;
+        }
+
+        .btn-auth {
             width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 13px;
+            border: 1px solid #4a3a1a;
+            border-radius: 2px;
+            font-size: 13px;
             cursor: pointer;
-            background: #ffd700;
-            color: #1a1a2e;
-            font-weight: bold;
-            margin-top: 5px;
+            background: transparent;
+            color: #c8a84e;
+            letter-spacing: 4px;
+            margin-top: 10px;
             font-family: inherit;
-            transition: 0.2s;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        #auth-btn:hover {
-            background: #ffed4a;
+        .btn-auth:hover {
+            background: rgba(200, 168, 78, 0.05);
+            border-color: #c8a84e;
         }
 
-        #auth-btn:disabled {
-            background: #555;
+        .btn-auth:disabled {
+            border-color: #1a1a1a;
+            color: #333;
             cursor: not-allowed;
-            color: #999;
+        }
+
+        .btn-auth:disabled:hover {
+            background: transparent;
         }
 
         #auth-msg {
-            margin-top: 15px;
-            font-size: 13px;
+            margin-top: 18px;
+            font-size: 12px;
             min-height: 20px;
+            letter-spacing: 1px;
         }
 
         #auth-msg.error {
-            color: #ff6b6b;
+            color: #8b3a3a;
         }
 
         #auth-msg.success {
-            color: #4caf50;
+            color: #4a6b3a;
         }
 
         .hidden {
             display: none;
         }
+
+        /* دیوایدر */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0 15px;
+            color: #2a2a2a;
+            font-size: 10px;
+            letter-spacing: 3px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #1a1a1a;
+        }
     </style>
 </head>
 <body>
+
+    <!-- موزیک پس‌زمینه -->
+    <audio id="bg-music" loop autoplay>
+        <source src="https://cdn.imgurl.ir/uploads/e852702_bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ذرات شناور -->
+    <div class="particles" id="particles"></div>
+
     <div id="auth-container">
-        <h1>🦋 پروانه‌ای در باغ</h1>
-        <p class="subtitle">بازی کارتی استراتژیک ۲ نفره</p>
+        <h1>پروانه‌ای در باغ</h1>
+        <p class="subtitle">بازی کارتی استراتژیک</p>
 
         <div class="tab-buttons">
             <button class="tab-btn active" id="tab-login">ورود</button>
@@ -154,13 +277,13 @@
         <div id="login-form">
             <div class="form-group">
                 <label>نام کاربری</label>
-                <input type="text" id="login-username" placeholder="نام کاربری را وارد کنید">
+                <input type="text" id="login-username" placeholder="نام کاربری">
             </div>
             <div class="form-group">
                 <label>رمز عبور</label>
-                <input type="password" id="login-password" placeholder="رمز عبور را وارد کنید">
+                <input type="password" id="login-password" placeholder="رمز عبور">
             </div>
-            <button id="auth-btn-login">ورود</button>
+            <button class="btn-auth" id="auth-btn-login">ورود</button>
         </div>
 
         <!-- فرم ثبت‌نام -->
@@ -177,13 +300,35 @@
                 <label>رمز عبور</label>
                 <input type="password" id="reg-password" placeholder="حداقل ۴ کاراکتر">
             </div>
-            <button id="auth-btn-register">ثبت‌نام</button>
+            <button class="btn-auth" id="auth-btn-register">ثبت‌نام</button>
         </div>
 
         <div id="auth-msg"></div>
     </div>
 
     <script>
+        // =====================
+        // موزیک پس‌زمینه - صدای آروم
+        // =====================
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.08;
+
+        // =====================
+        // ذرات شناور
+        // =====================
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 3 + 1;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
         // =====================
         // URL Apps Script
         // =====================
@@ -246,13 +391,11 @@
             const result = await callAPI({ action: 'login', username, password });
 
             if (result.success) {
-                showMsg('✅ ورود موفق! خوش آمدی ' + result.display_name, 'success');
-                // ذخیره اطلاعات کاربر
+                showMsg('ورود موفق', 'success');
                 localStorage.setItem('player', JSON.stringify(result));
-                // بعداً: رفتن به صفحه اصلی
                 console.log('ورود موفق:', result);
             } else {
-                showMsg('❌ ' + result.error, 'error');
+                showMsg(result.error, 'error');
             }
         });
 
@@ -278,15 +421,13 @@
             const result = await callAPI({ action: 'register', display_name: displayName, username, password });
 
             if (result.success) {
-                showMsg('✅ ثبت‌نام موفق! حالا می‌تونی وارد بشی', 'success');
-                // پاک کردن فرم
+                showMsg('ثبت‌نام موفق — حالا می‌تونی وارد بشی', 'success');
                 document.getElementById('reg-display').value = '';
                 document.getElementById('reg-username').value = '';
                 document.getElementById('reg-password').value = '';
-                // برگشت به تب ورود
                 tabLogin.click();
             } else {
-                showMsg('❌ ' + result.error, 'error');
+                showMsg(result.error, 'error');
             }
         });
     </script>
