@@ -350,8 +350,14 @@
 
             if (result.success) {
                 showMsg('ورود موفق', 'success');
+                localStorage.setItem('yt_username', username);
+                localStorage.setItem('yt_display_name', result.display_name);
+                localStorage.setItem('yt_level', result.level);
+                localStorage.setItem('yt_coins', result.coins);
+                localStorage.setItem('yt_gems', result.gems);
+                localStorage.setItem('yt_heroes', result.heroes);
                 setTimeout(() => {
-                    window.location.href = 'list/menu.html?username=' + encodeURIComponent(username);
+                    window.location.href = window.location.href.replace('index.html', '') + 'list/menu.html';
                 }, 800);
             } else {
                 showMsg(result.error, 'error');
