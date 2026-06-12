@@ -357,7 +357,7 @@
                 localStorage.setItem('yt_gems', result.gems);
                 localStorage.setItem('yt_heroes', result.heroes);
                 setTimeout(() => {
-                    window.location.href = window.location.href.replace('index.html', '') + 'list/menu.html';
+                    window.location.href = 'list/menu.html';
                 }, 800);
             } else {
                 showMsg(result.error, 'error');
