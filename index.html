@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پروانه‌ای در باغ - ورود</title>
+    <title>یتیم غوره - ورود</title>
     <style>
         * {
             margin: 0;
@@ -25,7 +25,6 @@
             background-repeat: repeat;
         }
 
-        /* افکت ذرات شناور */
         .particles {
             position: fixed;
             top: 0;
@@ -233,39 +232,18 @@
         .hidden {
             display: none;
         }
-
-        /* دیوایدر */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 20px 0 15px;
-            color: #2a2a2a;
-            font-size: 10px;
-            letter-spacing: 3px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #1a1a1a;
-        }
     </style>
 </head>
 <body>
 
-    <!-- موزیک پس‌زمینه -->
     <audio id="bg-music" loop autoplay>
         <source src="https://cdn.imgurl.ir/uploads/e852702_bg-music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- ذرات شناور -->
     <div class="particles" id="particles"></div>
 
     <div id="auth-container">
-        <h1>پروانه‌ای در باغ</h1>
+        <h1>یتیم غوره</h1>
         <p class="subtitle">بازی کارتی استراتژیک</p>
 
         <div class="tab-buttons">
@@ -273,7 +251,6 @@
             <button class="tab-btn" id="tab-register">ثبت‌نام</button>
         </div>
 
-        <!-- فرم ورود -->
         <div id="login-form">
             <div class="form-group">
                 <label>نام کاربری</label>
@@ -286,7 +263,6 @@
             <button class="btn-auth" id="auth-btn-login">ورود</button>
         </div>
 
-        <!-- فرم ثبت‌نام -->
         <div id="register-form" class="hidden">
             <div class="form-group">
                 <label>اسم نمایشی</label>
@@ -307,15 +283,9 @@
     </div>
 
     <script>
-        // =====================
-        // موزیک پس‌زمینه - صدای آروم
-        // =====================
         const bgMusic = document.getElementById('bg-music');
         bgMusic.volume = 0.08;
 
-        // =====================
-        // ذرات شناور
-        // =====================
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 20; i++) {
             const particle = document.createElement('div');
@@ -329,14 +299,8 @@
             particlesContainer.appendChild(particle);
         }
 
-        // =====================
-        // URL Apps Script
-        // =====================
         const API_URL = 'https://script.google.com/macros/s/AKfycbwNDr8V1h-hWcI-G20xwPkhR7D8iZFX4Y1UM8VdeHbPfSZDK-5d6I0niWTRrUQ1GLL-HQ/exec';
 
-        // =====================
-        // تب‌ها
-        // =====================
         const tabLogin = document.getElementById('tab-login');
         const tabRegister = document.getElementById('tab-register');
         const loginForm = document.getElementById('login-form');
@@ -361,9 +325,6 @@
             authMsg.className = '';
         });
 
-        // =====================
-        // تابع کمکی
-        // =====================
         function showMsg(text, type) {
             authMsg.textContent = text;
             authMsg.className = type;
@@ -375,9 +336,6 @@
             return await response.json();
         }
 
-        // =====================
-        // ورود
-        // =====================
         document.getElementById('auth-btn-login').addEventListener('click', async () => {
             const username = document.getElementById('login-username').value.trim();
             const password = document.getElementById('login-password').value.trim();
@@ -392,16 +350,14 @@
 
             if (result.success) {
                 showMsg('ورود موفق', 'success');
-                localStorage.setItem('player', JSON.stringify(result));
-                console.log('ورود موفق:', result);
+                setTimeout(() => {
+                    window.location.href = 'list/menu.html?username=' + encodeURIComponent(username);
+                }, 800);
             } else {
                 showMsg(result.error, 'error');
             }
         });
 
-        // =====================
-        // ثبت‌نام
-        // =====================
         document.getElementById('auth-btn-register').addEventListener('click', async () => {
             const displayName = document.getElementById('reg-display').value.trim();
             const username = document.getElementById('reg-username').value.trim();
