@@ -83,7 +83,7 @@
             height: 100vh;
         }
 
-        /* ====== دکمه چوبی ====== */
+        /* ====== دکمه چوبی با ترک ====== */
         .wood-btn {
             position: absolute;
             cursor: pointer;
@@ -93,7 +93,26 @@
             justify-content: center;
             border: 3px solid #3a2510;
             border-radius: 8px;
-            background: linear-gradient(180deg, #8b5a2b 0%, #6b3f1f 50%, #4a2510 100%);
+            background-color: #6b3f1f;
+            background-image: 
+                linear-gradient(180deg, #8b5a2b 0%, #6b3f1f 50%, #4a2510 100%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    transparent 28px,
+                    rgba(0,0,0,0.12) 28px,
+                    rgba(0,0,0,0.12) 29px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 18px,
+                    rgba(0,0,0,0.08) 18px,
+                    rgba(0,0,0,0.08) 19px
+                ),
+                linear-gradient(20deg, transparent 45%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.2) 47%, transparent 47%),
+                linear-gradient(-30deg, transparent 65%, rgba(0,0,0,0.15) 65%, rgba(0,0,0,0.15) 66%, transparent 66%),
+                linear-gradient(60deg, transparent 25%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 26%, transparent 26%);
             box-shadow: 
                 0 4px 8px rgba(0,0,0,0.6),
                 inset 0 2px 4px rgba(255,255,255,0.1),
@@ -106,7 +125,26 @@
         }
 
         .wood-btn:hover {
-            background: linear-gradient(180deg, #a06b35 0%, #7b4a24 50%, #5a3015 100%);
+            background-color: #7b4a24;
+            background-image: 
+                linear-gradient(180deg, #a06b35 0%, #7b4a24 50%, #5a3015 100%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    transparent 28px,
+                    rgba(0,0,0,0.15) 28px,
+                    rgba(0,0,0,0.15) 29px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 18px,
+                    rgba(0,0,0,0.1) 18px,
+                    rgba(0,0,0,0.1) 19px
+                ),
+                linear-gradient(20deg, transparent 45%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.25) 47%, transparent 47%),
+                linear-gradient(-30deg, transparent 65%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.2) 66%, transparent 66%),
+                linear-gradient(60deg, transparent 25%, rgba(0,0,0,0.15) 25%, rgba(0,0,0,0.15) 26%, transparent 26%);
             border-color: #d4a34a;
             box-shadow: 
                 0 6px 12px rgba(0,0,0,0.8),
